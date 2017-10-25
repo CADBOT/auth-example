@@ -1,5 +1,4 @@
 let uuid = require('uuid')
-let bluebird = require('bluebird')
 let bcrypt = require('bcrypt')
 let jwt = require('jsonwebtoken')
 let db = require('../../db')

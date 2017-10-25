@@ -21,7 +21,6 @@ function login(req, res, next) {
   if (!user) return next(new Error('User not found'))
   model.comparePassword(user, password)
     .then(matches => {
-      debugger
       if (!matches) return next(new Error('Invalid password'))
       let token = model.generateToken(user.username)
       res.json({token})

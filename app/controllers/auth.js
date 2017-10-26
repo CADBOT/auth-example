@@ -1,4 +1,4 @@
-let model = require('../models/User.js')
+let model = require('../models/User')
 let base64 = require('base-64')
 
 function signup(req, res, next) {

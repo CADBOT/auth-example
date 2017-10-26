@@ -42,6 +42,7 @@ function verifyToken(token, secret=SECRET) {
   return decodedToken
 }
 
+// TODO Write unit test for this function
 function save(user) {
   return hashUserPassword(user)
   .then((user) => {

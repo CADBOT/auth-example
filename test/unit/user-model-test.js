@@ -18,7 +18,7 @@ describe('creating a user', function() {
   })
 })
 
-describe('find user', function() {
+describe('finding and saving users', function() {
   beforeEach(function() {
     this.proxyModel = proxyquire('../../app/models/User', 
                                {'../../db' : {users: [{username: 'bob', password: 'password', id: 1}]}})

@@ -31,26 +31,19 @@ describe('find user', function() {
 })
 
 describe('user password hashing', function() {
-  beforeEach(function(done) {
+  beforeEach(function() {
     this.model = proxyquire('../../app/models/User', 
                                {'../../db' : {users: []}})
     this.password = 'password1234'
     this.user = this.model.create({username: 'bob', password: this.password})
     this.SALTROUNDS = 10
-    this.model.save(this.user).then(user => {
-      this.user = user
-      done()
-    })
   })
   it('can hash a users password', function(done) {
-    debugger
 	model.hashUserPassword(this.user)
     .then(user => {
-      debugger
       return bcrypt.compare(this.password, user.password)
     })
     .then(result => {
-      debugger
       expect(result).to.equal(true)
       done()
     })
@@ -60,7 +53,8 @@ describe('user password hashing', function() {
     })
   })
   it('can validate a password against the stored hashed password', function(done) {
-    model.comparePassword(this.user, this.password)
+    this.model.save(this.user)
+      .then(user =>  model.comparePassword(user, this.password))
       .then(matches => {
         expect(matches).to.equal(true)
         done()

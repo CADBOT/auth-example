@@ -69,13 +69,15 @@ describe('user password hashing', function() {
 describe('json web token generation', function() {
   beforeEach(function() {
     this.secret = 'test secret'
-    this.token = model.generateToken('bob', this.secret)
   })
   it('can generate a token for a user, that will have a username for the payload', function() {
-    let decodedToken = jwt.verify(this.token, this.secret)
+    let token = model.generateToken('bob', this.secret)
+    let decodedToken = jwt.verify(token, this.secret)
     expect(decodedToken).to.equal('bob')
   })
-  xit('can verify a token', function() {
-     
+  it('can verify a token', function() {
+    let token = jwt.sign('bob', this.secret)
+    let decodedToken = model.verifyToken(token, this.secret)   
+    expect(decodedToken).to.equal('bob')
   })
 })

@@ -33,13 +33,11 @@ function comparePassword(user, password) {
 }
 
 function generateToken(userName, secret=SECRET) {
-  debugger
   let token = jwt.sign(userName, secret)
   return token
 }
 
 function verifyToken(token, secret=SECRET) {
-  debugger
   let decodedToken = jwt.verify(token, secret)
   return decodedToken
 }

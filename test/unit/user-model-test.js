@@ -2,6 +2,7 @@ let model = require('../../app/models/User')
 let {expect} = require('chai')
 let proxyquire = require('proxyquire')
 let bcrypt = require('bcrypt')
+let jwt = require('jsonwebtoken')
 
 describe('creating a user', function() {
   it('can create a user with the correct properties', function() {
@@ -63,5 +64,18 @@ describe('user password hashing', function() {
         console.error(err)
         done()
       }) 
+  })
+})
+describe('json web token generation', function() {
+  beforeEach(function() {
+    this.secret = 'test secret'
+    this.token = model.generateToken('bob', this.secret)
+  })
+  it('can generate a token for a user, that will have a username for the payload', function() {
+    let decodedToken = jwt.verify(this.token, this.secret)
+    expect(decodedToken).to.equal('bob')
+  })
+  xit('can verify a token', function() {
+     
   })
 })

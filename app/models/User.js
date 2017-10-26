@@ -2,8 +2,8 @@ let uuid = require('uuid')
 let bcrypt = require('bcrypt')
 let jwt = require('jsonwebtoken')
 let db = require('../../db')
-const SECRET = process.env.SECRET || 'SUPER SECRET'
-const SALTROUNDS = 10
+let SECRET = process.env.SECRET || 'SUPER SECRET'
+let SALTROUNDS = 10
 
 function create({username, password}) {
   let user = {}
@@ -32,13 +32,15 @@ function comparePassword(user, password) {
   return bcrypt.compare(password, user.password)
 }
 
-function generateToken(userName) {
-  let token = jwt.sign(userName, SECRET)
+function generateToken(userName, secret=SECRET) {
+  debugger
+  let token = jwt.sign(userName, secret)
   return token
 }
 
-function verifyToken(token) {
-  let decodedToken = jwt.verify(token, SECRET)
+function verifyToken(token, secret=SECRET) {
+  debugger
+  let decodedToken = jwt.verify(token, secret)
   return decodedToken
 }
 

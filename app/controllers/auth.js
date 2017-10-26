@@ -12,6 +12,7 @@ function signup(req, res, next) {
 }
 
 function login(req, res, next) {
+  debugger
   if (!req.headers.authorization) {
     return next(new Error('authorization header required'))
   }

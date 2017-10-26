@@ -3,6 +3,7 @@ let bcrypt = require('bcrypt')
 let jwt = require('jsonwebtoken')
 let db = require('../../db')
 const SECRET = process.env.SECRET || 'SUPER SECRET'
+const SALTROUNDS = 10
 
 function create({username, password}) {
   let user = {}
@@ -14,6 +15,21 @@ function create({username, password}) {
 
 function findUser(userName) {
   return db.users.find(u => u.username == userName)
+}
+
+function hashUserPassword(user) {
+  return bcrypt.hash(user.password, SALTROUNDS)
+    .then(hash => {
+      user.password = hash
+      return user
+    })
+    .catch(e => {
+      console.error(e)
+    })
+}
+
+function comparePassword(user, password) {
+  return bcrypt.compare(password, user.password)
 }
 
 function generateToken(userName) {
@@ -34,17 +50,5 @@ function save(user) {
   })
 }
 
-function hashUserPassword(user) {
-  return bcrypt.hash(user.password, 10)
-    .then(hash => {
-      user.password = hash
-      return user
-    })
-    .catch(err => next(err))
-}
-
-function comparePassword(user, password) {
-  return bcrypt.compare(password, user.password)
-}
 
 module.exports = {create, findUser, generateToken, verifyToken, save, hashUserPassword, comparePassword}

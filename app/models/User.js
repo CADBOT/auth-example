@@ -44,10 +44,8 @@ function verifyToken(token, secret=SECRET) {
 
 // TODO Write unit test for this function
 function save(user) {
-  debugger
   return hashUserPassword(user)
   .then((user) => {
-    debugger
     db.users.push(user)
     return user
   })

@@ -2,8 +2,8 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let app = express()
 let authRouter = require('./app/routes')
-let auth = require('./lib/authenticate')
-let errorHandler = require('./lib/error-handling')
+let auth = require('./lib/middlewear/authenticate')
+let errorHandler = require('./lib/middlewear/error-handling')
 const PORT = process.env.PORT || 3000
 
 app.use(bodyParser.json({

@@ -6,8 +6,12 @@ function signup(req, res, next) {
     return next(new Error('username and password required'))
   }
   let user = model.create(req.body)
+  debugger
   model.save(user)
-    .then(user => res.json({user}))
+    .then(user => {
+      debugger
+      res.json({user})
+    })
     .catch(err => next(err))
 }
 
